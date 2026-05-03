@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina | Premium Tech Store</title>
+    <meta name="description" content="Discover professional-grade tech and accessories at Lumina. Neat, clean, and professional e-commerce experience.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">LUMINA</a>
+        <div class="nav-actions">
+            <button id="wishlist-toggle" class="nav-btn">
+                <i class="fa-regular fa-heart"></i>
+                <span class="badge" id="wishlist-count">0</span>
+            </button>
+            <button id="cart-toggle" class="nav-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Elevate Your Workspace</h1>
+        <p>Experience precision-engineered technology designed for professionals who demand excellence.</p>
+    </header>
+
+    <main class="container">
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be rendered here via JS -->
+        </div>
+    </main>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Cart Drawer -->
+    <div class="side-panel" id="cart-panel">
+        <div class="panel-header">
+            <h2>Your Cart</h2>
+            <button class="nav-btn" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="panel-content" id="cart-items">
+            <!-- Cart items -->
+        </div>
+        <div class="panel-footer">
+            <div class="total-row">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div class="side-panel" id="wishlist-panel">
+        <div class="panel-header">
+            <h2>Wishlist</h2>
+            <button class="nav-btn" onclick="toggleWishlist()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="panel-content" id="wishlist-items">
+            <!-- Wishlist items -->
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status | Lumina</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">LUMINA</a>
+        <div class="nav-actions">
+            <a href="index.html" class="nav-btn" style="text-decoration: none; font-size: 0.9rem; font-weight: 600;">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <main class="order-container">
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h2>Thank you for your order!</h2>
+                    <p class="order-id" id="order-id">Order ID: #LMN-77421890</p>
+                </div>
+                <div style="text-align: right">
+                    <p style="font-weight: 600; color: var(--primary)" id="order-total">$0.00</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted)" id="order-date">Date: May 3, 2026</p>
+                </div>
+            </div>
+
+            <div class="tracking-wrapper">
+                <div class="tracking-line">
+                    <div class="tracking-line-progress" id="progress-bar" style="width: 25%;"></div>
+                </div>
+                <div class="tracking-stepper">
+                    <div class="step active" id="step-ordered">
+                        <div class="step-icon"><i class="fa-solid fa-box"></i></div>
+                        <span class="step-label">Ordered</span>
+                    </div>
+                    <div class="step" id="step-packed">
+                        <div class="step-icon"><i class="fa-solid fa-archive"></i></div>
+                        <span class="step-label">Packed</span>
+                    </div>
+                    <div class="step" id="step-shipped">
+                        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <span class="step-label">Shipped</span>
+                    </div>
+                    <div class="step" id="step-delivered">
+                        <div class="step-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <span class="step-label">Delivered</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-items-list" id="order-items-list">
+                <!-- Items will be injected here -->
+            </div>
+        </div>
+
+        <div style="text-align: center">
+            <a href="index.html" class="nav-btn" style="text-decoration: none; border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: var(--radius)">
+                Continue Shopping
+            </a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderData = JSON.parse(localStorage.getItem('lastOrder'));
+            if (!orderData) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Populate UI
+            document.getElementById('order-total').textContent = `$${orderData.total.toFixed(2)}`;
+            const date = new Date(orderData.date);
+            document.getElementById('order-date').textContent = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            
+            // Random Order ID
+            const randomId = Math.floor(10000000 + Math.random() * 90000000);
+            document.getElementById('order-id').textContent = `Order ID: #LMN-${randomId}`;
+
+            const itemsList = document.getElementById('order-items-list');
+            itemsList.innerHTML = orderData.items.map(item => `
+                <div class="order-item-row">
+                    <img src="${item.image}" alt="${item.name}" class="order-item-img">
+                    <div class="order-item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.category}</p>
+                        <p style="margin-top: 0.5rem; font-weight: 500; color: var(--text-main)">Qty: ${item.quantity}</p>
+                    </div>
+                    <div style="text-align: right">
+                        <p style="font-size: 1.25rem; font-weight: 700; color: var(--primary)">$${item.price.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Smooth progress animation
+            setTimeout(() => {
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = '25%'; // Ordered state
+            }, 500);
+        });
+    </script>
+</body>
+</html>
